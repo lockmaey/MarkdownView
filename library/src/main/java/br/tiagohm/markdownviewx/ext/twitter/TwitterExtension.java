@@ -1,8 +1,8 @@
 package br.tiagohm.markdownviewx.ext.twitter;
 
-import com.vladsch.flexmark.Extension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataHolder;
 
 import br.tiagohm.markdownviewx.ext.twitter.internal.TwitterNodePostProcessor;
