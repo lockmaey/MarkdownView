@@ -73,6 +73,7 @@ import br.tiagohm.markdownview.ext.twitter.TwitterExtension;
 import br.tiagohm.markdownview.ext.video.VideoLinkExtension;
 import br.tiagohm.markdownview.js.ExternalScript;
 import br.tiagohm.markdownview.js.JavaScript;
+import br.tiagohm.markdownviewx.R;
 
 public class MarkdownView extends WebView {
 
