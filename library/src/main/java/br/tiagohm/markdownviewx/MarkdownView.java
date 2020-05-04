@@ -31,6 +31,7 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.IndependentAttributeProviderFactory;
 import com.vladsch.flexmark.html.renderer.AttributablePart;
+import com.vladsch.flexmark.html.renderer.LinkResolverContext;
 import com.vladsch.flexmark.html.renderer.LinkType;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
 import com.vladsch.flexmark.html.renderer.NodeRendererContext;
@@ -57,7 +58,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import br.tiagohm.markdownviewx.R;
 import br.tiagohm.markdownviewx.css.ExternalStyleSheet;
 import br.tiagohm.markdownviewx.css.InternalStyleSheet;
 import br.tiagohm.markdownviewx.css.StyleSheet;
@@ -220,8 +220,9 @@ public class MarkdownView extends WebView {
                 .escapeHtml(mEscapeHtml)
                 .attributeProviderFactory(new IndependentAttributeProviderFactory() {
                     @Override
-                    public AttributeProvider create(NodeRendererContext context) {
+                    public AttributeProvider create(LinkResolverContext context) {
                         return new CustomAttributeProvider();
+
                     }
                 })
                 .nodeRendererFactory(new NodeRendererFactoryImpl())
@@ -310,7 +311,7 @@ public class MarkdownView extends WebView {
                                 final int index = url.indexOf('@');
 
                                 if (index >= 0) {
-                                    String[] dimensions = url.substring(index + 1, url.length()).split("\\|");
+                                    String[] dimensions = url.substring(index + 1).split("\\|");
                                     url = url.substring(0, index);
 
                                     if (dimensions.length == 2) {
