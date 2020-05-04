@@ -1,13 +1,12 @@
 package br.tiagohm.markdownviewx.ext.bean.internal;
 
 import com.orhanobut.logger.Logger;
-import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
 import com.vladsch.flexmark.html.renderer.NodeRendererContext;
 import com.vladsch.flexmark.html.renderer.NodeRendererFactory;
 import com.vladsch.flexmark.html.renderer.NodeRenderingHandler;
-import com.vladsch.flexmark.util.options.DataHolder;
+import com.vladsch.flexmark.util.data.DataHolder;
 
 import java.lang.reflect.Method;
 import java.util.HashSet;
@@ -82,7 +81,7 @@ public class BeanNodeRenderer implements NodeRenderer {
     @Override
     public Set<NodeRenderingHandler<?>> getNodeRenderingHandlers() {
         HashSet<NodeRenderingHandler<?>> set = new HashSet<>();
-        set.add(new NodeRenderingHandler<>(Bean.class, new CustomNodeRenderer<Bean>() {
+        set.add(new NodeRenderingHandler<>(Bean.class, new NodeRenderingHandler.CustomNodeRenderer<Bean>() {
             @Override
             public void render(Bean node, NodeRendererContext context, HtmlWriter html) {
                 BeanNodeRenderer.this.render(node, context, html);
@@ -109,7 +108,7 @@ public class BeanNodeRenderer implements NodeRenderer {
 
     public static class Factory implements NodeRendererFactory {
         @Override
-        public NodeRenderer create(final DataHolder options) {
+        public NodeRenderer apply(DataHolder options) {
             return new BeanNodeRenderer(options);
         }
     }

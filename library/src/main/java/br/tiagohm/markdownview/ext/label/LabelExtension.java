@@ -2,8 +2,8 @@ package br.tiagohm.markdownview.ext.label;
 
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.builder.Extension;
-import com.vladsch.flexmark.util.options.MutableDataHolder;
+import com.vladsch.flexmark.util.misc.Extension;
+import com.vladsch.flexmark.util.data.MutableDataHolder;
 
 import br.tiagohm.markdownview.ext.label.internal.LabelDelimiterProcessor;
 import br.tiagohm.markdownview.ext.label.internal.LabelNodeRenderer;

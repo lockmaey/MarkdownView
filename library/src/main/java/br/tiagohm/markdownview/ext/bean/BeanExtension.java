@@ -2,9 +2,9 @@ package br.tiagohm.markdownview.ext.bean;
 
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.builder.Extension;
-import com.vladsch.flexmark.util.options.DataKey;
-import com.vladsch.flexmark.util.options.MutableDataHolder;
+import com.vladsch.flexmark.util.data.DataKey;
+import com.vladsch.flexmark.util.data.MutableDataHolder;
+import com.vladsch.flexmark.util.misc.Extension;
 
 import br.tiagohm.markdownview.MarkdownView;
 import br.tiagohm.markdownview.ext.bean.internal.BeanDelimiterProcessor;
