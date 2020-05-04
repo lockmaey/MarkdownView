@@ -1,10 +1,10 @@
 package br.tiagohm.markdownviewx.ext.emoji.internal;
 
-import com.vladsch.flexmark.ast.Node;
-import com.vladsch.flexmark.internal.Delimiter;
 import com.vladsch.flexmark.parser.InlineParser;
+import com.vladsch.flexmark.parser.core.delimiter.Delimiter;
 import com.vladsch.flexmark.parser.delimiter.DelimiterProcessor;
 import com.vladsch.flexmark.parser.delimiter.DelimiterRun;
+import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
 import br.tiagohm.markdownviewx.ext.emoji.Emoji;
@@ -36,6 +36,18 @@ public class EmojiDelimiterProcessor implements DelimiterProcessor {
     }
 
     @Override
+    public void process(Delimiter opener, Delimiter closer, int delimitersUsed) {
+        // Normal case, wrap nodes between delimiters in emoji node.
+        // don't allow any spaces between delimiters
+        if (opener.getInput().subSequence(opener.getEndIndex(), closer.getStartIndex()).indexOfAny(BasedSequence.WHITESPACE_CHARS) == -1) {
+            Emoji emoji = new Emoji(opener.getTailChars(delimitersUsed), BasedSequence.NULL, closer.getLeadChars(delimitersUsed));
+            opener.moveNodesBetweenDelimitersTo(emoji, closer);
+        } else {
+            opener.convertDelimitersToText(delimitersUsed, closer);
+        }
+    }
+
+    @Override
     public Node unmatchedDelimiterNode(InlineParser inlineParser, final DelimiterRun delimiter) {
         return null;
     }
@@ -55,15 +67,4 @@ public class EmojiDelimiterProcessor implements DelimiterProcessor {
         return true;
     }
 
-    @Override
-    public void process(Delimiter opener, Delimiter closer, int delimitersUsed) {
-        // Normal case, wrap nodes between delimiters in emoji node.
-        // don't allow any spaces between delimiters
-        if (opener.getInput().subSequence(opener.getEndIndex(), closer.getStartIndex()).indexOfAny(BasedSequence.WHITESPACE_CHARS) == -1) {
-            Emoji emoji = new Emoji(opener.getTailChars(delimitersUsed), BasedSequence.NULL, closer.getLeadChars(delimitersUsed));
-            opener.moveNodesBetweenDelimitersTo(emoji, closer);
-        } else {
-            opener.convertDelimitersToText(delimitersUsed, closer);
-        }
-    }
 }

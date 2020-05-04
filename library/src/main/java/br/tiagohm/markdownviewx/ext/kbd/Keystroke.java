@@ -1,7 +1,7 @@
 package br.tiagohm.markdownviewx.ext.kbd;
 
-import com.vladsch.flexmark.ast.CustomNode;
 import com.vladsch.flexmark.ast.DelimitedNode;
+import com.vladsch.flexmark.util.ast.CustomNode;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
 public class Keystroke extends CustomNode implements DelimitedNode {

@@ -1,7 +1,7 @@
 package br.tiagohm.markdownviewx.ext.emoji;
 
-import com.vladsch.flexmark.ast.CustomNode;
 import com.vladsch.flexmark.ast.DelimitedNode;
+import com.vladsch.flexmark.util.ast.CustomNode;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
 /**
