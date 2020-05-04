@@ -1,4 +1,4 @@
-package br.tiagohm.markdownview;
+package br.tiagohm.markdownviewx;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
