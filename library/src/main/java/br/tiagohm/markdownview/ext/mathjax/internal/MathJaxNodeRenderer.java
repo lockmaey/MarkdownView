@@ -1,11 +1,12 @@
 package br.tiagohm.markdownview.ext.mathjax.internal;
 
+import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
 import com.vladsch.flexmark.html.renderer.NodeRendererContext;
 import com.vladsch.flexmark.html.renderer.NodeRendererFactory;
 import com.vladsch.flexmark.html.renderer.NodeRenderingHandler;
-import com.vladsch.flexmark.util.data.DataHolder;
+import com.vladsch.flexmark.util.options.DataHolder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class MathJaxNodeRenderer implements NodeRenderer {
     @Override
     public Set<NodeRenderingHandler<?>> getNodeRenderingHandlers() {
         HashSet<NodeRenderingHandler<?>> set = new HashSet<>();
-        set.add(new NodeRenderingHandler<>(MathJax.class, new NodeRenderingHandler.CustomNodeRenderer<MathJax>() {
+        set.add(new NodeRenderingHandler<>(MathJax.class, new CustomNodeRenderer<MathJax>() {
             @Override
             public void render(MathJax node, NodeRendererContext context, HtmlWriter html) {
                 MathJaxNodeRenderer.this.render(node, context, html);
@@ -48,7 +49,7 @@ public class MathJaxNodeRenderer implements NodeRenderer {
 
     public static class Factory implements NodeRendererFactory {
         @Override
-        public NodeRenderer apply(final DataHolder options) {
+        public NodeRenderer create(final DataHolder options) {
             return new MathJaxNodeRenderer(options);
         }
     }

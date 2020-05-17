@@ -1,11 +1,12 @@
 package br.tiagohm.markdownview.ext.mark.internal;
 
+import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
 import com.vladsch.flexmark.html.renderer.NodeRendererContext;
 import com.vladsch.flexmark.html.renderer.NodeRendererFactory;
 import com.vladsch.flexmark.html.renderer.NodeRenderingHandler;
-import com.vladsch.flexmark.util.data.DataHolder;
+import com.vladsch.flexmark.util.options.DataHolder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ public class MarkNodeRenderer implements NodeRenderer {
     @Override
     public Set<NodeRenderingHandler<?>> getNodeRenderingHandlers() {
         HashSet<NodeRenderingHandler<?>> set = new HashSet<>();
-        set.add(new NodeRenderingHandler<>(Mark.class, new NodeRenderingHandler.CustomNodeRenderer<Mark>() {
+        set.add(new NodeRenderingHandler<>(Mark.class, new CustomNodeRenderer<Mark>() {
             @Override
             public void render(Mark node, NodeRendererContext context, HtmlWriter html) {
                 MarkNodeRenderer.this.render(node, context, html);
@@ -38,7 +39,7 @@ public class MarkNodeRenderer implements NodeRenderer {
 
     public static class Factory implements NodeRendererFactory {
         @Override
-        public NodeRenderer apply(final DataHolder options) {
+        public NodeRenderer create(final DataHolder options) {
             return new MarkNodeRenderer(options);
         }
     }

@@ -1,10 +1,10 @@
 package br.tiagohm.markdownview.ext.bean;
 
-import com.vladsch.flexmark.util.ast.DelimitedNode;
-import com.vladsch.flexmark.util.ast.Node;
+import com.vladsch.flexmark.ast.DelimitedNode;
+import com.vladsch.flexmark.util.ast.CustomNode;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
-public class Bean extends Node implements DelimitedNode {
+public class Bean extends CustomNode implements DelimitedNode {
     protected BasedSequence openingMarker = BasedSequence.NULL;
     protected BasedSequence text = BasedSequence.NULL;
     protected BasedSequence closingMarker = BasedSequence.NULL;
