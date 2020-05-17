@@ -1,8 +1,8 @@
 package br.tiagohm.markdownview.ext.kbd;
 
-import com.vladsch.flexmark.Extension;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.options.MutableDataHolder;
 
 import br.tiagohm.markdownview.ext.kbd.internal.KeystrokeDelimiterProcessor;

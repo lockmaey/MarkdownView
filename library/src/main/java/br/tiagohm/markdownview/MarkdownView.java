@@ -9,13 +9,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import com.orhanobut.logger.Logger;
-import com.vladsch.flexmark.Extension;
 import com.vladsch.flexmark.ast.AutoLink;
 import com.vladsch.flexmark.ast.FencedCodeBlock;
 import com.vladsch.flexmark.ast.Heading;
 import com.vladsch.flexmark.ast.Image;
 import com.vladsch.flexmark.ast.Link;
-import com.vladsch.flexmark.ast.Node;
 import com.vladsch.flexmark.ast.util.TextCollectingVisitor;
 import com.vladsch.flexmark.ext.abbreviation.Abbreviation;
 import com.vladsch.flexmark.ext.abbreviation.AbbreviationExtension;
@@ -31,6 +29,7 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.IndependentAttributeProviderFactory;
 import com.vladsch.flexmark.html.renderer.AttributablePart;
+import com.vladsch.flexmark.html.renderer.LinkResolverContext;
 import com.vladsch.flexmark.html.renderer.LinkType;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
 import com.vladsch.flexmark.html.renderer.NodeRendererContext;
@@ -39,6 +38,8 @@ import com.vladsch.flexmark.html.renderer.NodeRenderingHandler;
 import com.vladsch.flexmark.html.renderer.ResolvedLink;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
+import com.vladsch.flexmark.util.ast.Node;
+import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.html.Attributes;
 import com.vladsch.flexmark.util.html.Escaping;
 import com.vladsch.flexmark.util.options.DataHolder;
@@ -73,6 +74,7 @@ import br.tiagohm.markdownview.ext.twitter.TwitterExtension;
 import br.tiagohm.markdownview.ext.video.VideoLinkExtension;
 import br.tiagohm.markdownview.js.ExternalScript;
 import br.tiagohm.markdownview.js.JavaScript;
+import br.tiagohm.markdownviewx.R;
 
 public class MarkdownView extends WebView {
 
@@ -115,15 +117,15 @@ public class MarkdownView extends WebView {
     private Object bean;
 
     public MarkdownView(Context context) {
-        this(context, null);
+        this(context.getApplicationContext(), null);
     }
 
     public MarkdownView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context.getApplicationContext(), attrs, 0);
     }
 
     public MarkdownView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(context.getApplicationContext(), attrs, defStyleAttr);
 
         ((MutableDataHolder) OPTIONS).set(BeanExtension.BEAN_VIEW, this);
 
@@ -219,7 +221,7 @@ public class MarkdownView extends WebView {
                 .escapeHtml(mEscapeHtml)
                 .attributeProviderFactory(new IndependentAttributeProviderFactory() {
                     @Override
-                    public AttributeProvider create(NodeRendererContext context) {
+                    public AttributeProvider create(LinkResolverContext context) {
                         return new CustomAttributeProvider();
                     }
                 })
@@ -309,7 +311,7 @@ public class MarkdownView extends WebView {
                                 final int index = url.indexOf('@');
 
                                 if (index >= 0) {
-                                    String[] dimensions = url.substring(index + 1, url.length()).split("\\|");
+                                    String[] dimensions = url.substring(index + 1).split("\\|");
                                     url = url.substring(0, index);
 
                                     if (dimensions.length == 2) {
