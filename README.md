@@ -17,7 +17,7 @@ allprojects {
 ```
 Add the dependency:
 ```gradle
-implementation 'com.github.tiagohm.MarkdownView:library:LATEST-VERSION'
+implementation 'com.github.lockmaey.MarkdownView:library:LATEST-VERSION'
 ```
 
 LATEST-VERSION is [![](https://jitpack.io/v/lockmaey/MarkdownView.svg)](https://jitpack.io/#lockmaey/MarkdownView)
