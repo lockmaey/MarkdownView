@@ -116,15 +116,15 @@ public class MarkdownView extends WebView {
     private Object bean;
 
     public MarkdownView(Context context) {
-        this(context, null);
+        this(context.getApplicationContext(), null);
     }
 
     public MarkdownView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context.getApplicationContext(), attrs, 0);
     }
 
     public MarkdownView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        super(context.getApplicationContext(), attrs, defStyleAttr);
 
         ((MutableDataHolder) OPTIONS).set(BeanExtension.BEAN_VIEW, this);
 
