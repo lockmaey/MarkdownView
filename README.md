@@ -20,7 +20,7 @@ Add the dependency:
 implementation 'com.github.tiagohm.MarkdownView:library:LATEST-VERSION'
 ```
 
-LATEST-VERSION is [![](https://jitpack.io/v/tiagohm/MarkdownView.svg)](https://jitpack.io/#tiagohm/MarkdownView)
+LATEST-VERSION is [![](https://jitpack.io/v/lockmaey/MarkdownView.svg)](https://jitpack.io/#lockmaey/MarkdownView)
 
 ## Usage
 
