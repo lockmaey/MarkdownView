@@ -18,7 +18,6 @@ package br.tiagohm.markdownview.ext.video.internal;
 
 import android.text.TextUtils;
 
-import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.renderer.LinkType;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
@@ -27,6 +26,8 @@ import com.vladsch.flexmark.html.renderer.NodeRendererFactory;
 import com.vladsch.flexmark.html.renderer.NodeRenderingHandler;
 import com.vladsch.flexmark.html.renderer.ResolvedLink;
 import com.vladsch.flexmark.util.data.DataHolder;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,9 +42,9 @@ public class VideoLinkNodeRenderer implements NodeRenderer {
     @Override
     public Set<NodeRenderingHandler<?>> getNodeRenderingHandlers() {
         HashSet<NodeRenderingHandler<?>> set = new HashSet<>();
-        set.add(new NodeRenderingHandler<>(VideoLink.class, new CustomNodeRenderer<VideoLink>() {
+        set.add(new NodeRenderingHandler<>(VideoLink.class, new NodeRenderingHandler.CustomNodeRenderer<VideoLink>() {
             @Override
-            public void render(VideoLink node, NodeRendererContext context, HtmlWriter html) {
+            public void render(@NotNull VideoLink node, @NotNull NodeRendererContext context, @NotNull HtmlWriter html) {
                 VideoLinkNodeRenderer.this.render(node, context, html);
             }
         }));
@@ -76,8 +77,9 @@ public class VideoLinkNodeRenderer implements NodeRenderer {
     }
 
     public static class Factory implements NodeRendererFactory {
+        @NotNull
         @Override
-        public NodeRenderer apply(final DataHolder options) {
+        public NodeRenderer apply(@NotNull final DataHolder options) {
             return new VideoLinkNodeRenderer(options);
         }
     }

@@ -22,9 +22,9 @@ import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
 import com.vladsch.flexmark.ext.footnotes.FootnoteExtension;
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughSubscriptExtension;
 import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
+import com.vladsch.flexmark.ext.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.ext.tables.TablesExtension;
 import com.vladsch.flexmark.html.AttributeProvider;
-import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.IndependentAttributeProviderFactory;
@@ -37,14 +37,16 @@ import com.vladsch.flexmark.html.renderer.NodeRendererFactory;
 import com.vladsch.flexmark.html.renderer.NodeRenderingHandler;
 import com.vladsch.flexmark.html.renderer.ResolvedLink;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.data.MutableDataHolder;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 import com.vladsch.flexmark.util.html.Attributes;
-import com.vladsch.flexmark.util.html.Escaping;
+import com.vladsch.flexmark.util.html.MutableAttributes;
+import com.vladsch.flexmark.util.misc.Extension;
+import com.vladsch.flexmark.util.sequence.Escaping;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -287,15 +289,16 @@ public class MarkdownView extends WebView {
     }
 
     public static class NodeRendererFactoryImpl implements NodeRendererFactory {
+        @NotNull
         @Override
-        public NodeRenderer apply(DataHolder options) {
+        public NodeRenderer apply(@NotNull DataHolder options) {
             return new NodeRenderer() {
                 @Override
                 public Set<NodeRenderingHandler<?>> getNodeRenderingHandlers() {
                     HashSet<NodeRenderingHandler<?>> set = new HashSet<>();
-                    set.add(new NodeRenderingHandler<>(Image.class, new CustomNodeRenderer<Image>() {
+                    set.add(new NodeRenderingHandler<>(Image.class, new NodeRenderingHandler.CustomNodeRenderer<Image>() {
                         @Override
-                        public void render(Image node, NodeRendererContext context, HtmlWriter html) {
+                        public void render(@NotNull Image node, @NotNull NodeRendererContext context, @NotNull HtmlWriter html) {
                             if (!context.isDoNotRenderLinks()) {
                                 String altText = new TextCollectingVisitor().collectAndGetText(node);
 
@@ -340,7 +343,7 @@ public class MarkdownView extends WebView {
 
     public class CustomAttributeProvider implements AttributeProvider {
         @Override
-        public void setAttributes(final Node node, final AttributablePart part, final Attributes attributes) {
+        public void setAttributes(@NotNull Node node, @NotNull AttributablePart part, @NotNull MutableAttributes attributes) {
             if (node instanceof FencedCodeBlock) {
                 if (part.getName().equals("NODE")) {
                     String language = ((FencedCodeBlock) node).getInfo().toString();

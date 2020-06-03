@@ -4,9 +4,11 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
 import com.vladsch.flexmark.html.renderer.NodeRendererFactory;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.data.MutableDataHolder;
+import com.vladsch.flexmark.util.misc.Extension;
+
+import org.jetbrains.annotations.NotNull;
 
 import br.tiagohm.markdownviewx.ext.mark.internal.MarkDelimiterProcessor;
 import br.tiagohm.markdownviewx.ext.mark.internal.MarkNodeRenderer;
@@ -20,7 +22,7 @@ public class MarkExtension implements Parser.ParserExtension, HtmlRenderer.HtmlR
     }
 
     @Override
-    public void rendererOptions(final MutableDataHolder options) {
+    public void rendererOptions(@NotNull final MutableDataHolder options) {
 
     }
 
@@ -35,11 +37,12 @@ public class MarkExtension implements Parser.ParserExtension, HtmlRenderer.HtmlR
     }
 
     @Override
-    public void extend(HtmlRenderer.Builder rendererBuilder, String rendererType) {
+    public void extend(@NotNull HtmlRenderer.Builder rendererBuilder, @NotNull String rendererType) {
         if ("HTML".equals(rendererType)) {
             rendererBuilder.nodeRendererFactory(new NodeRendererFactory() {
+                @NotNull
                 @Override
-                public NodeRenderer apply(DataHolder options) {
+                public NodeRenderer apply(@NotNull DataHolder options) {
                     return new MarkNodeRenderer(options);
                 }
             });

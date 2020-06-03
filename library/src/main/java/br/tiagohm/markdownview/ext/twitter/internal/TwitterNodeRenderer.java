@@ -3,7 +3,6 @@ package br.tiagohm.markdownview.ext.twitter.internal;
 import android.os.ConditionVariable;
 import android.text.TextUtils;
 
-import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.renderer.LinkType;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
@@ -12,6 +11,7 @@ import com.vladsch.flexmark.html.renderer.NodeRendererFactory;
 import com.vladsch.flexmark.html.renderer.NodeRenderingHandler;
 import com.vladsch.flexmark.util.data.DataHolder;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -36,9 +36,9 @@ public class TwitterNodeRenderer implements NodeRenderer {
     @Override
     public Set<NodeRenderingHandler<?>> getNodeRenderingHandlers() {
         HashSet<NodeRenderingHandler<?>> set = new HashSet<>();
-        set.add(new NodeRenderingHandler<>(Twitter.class, new CustomNodeRenderer<Twitter>() {
+        set.add(new NodeRenderingHandler<>(Twitter.class, new NodeRenderingHandler.CustomNodeRenderer<Twitter>() {
             @Override
-            public void render(Twitter node, NodeRendererContext context, HtmlWriter html) {
+            public void render(@NotNull Twitter node, @NotNull NodeRendererContext context, @NotNull HtmlWriter html) {
                 TwitterNodeRenderer.this.render(node, context, html);
             }
         }));
@@ -89,8 +89,9 @@ public class TwitterNodeRenderer implements NodeRenderer {
     }
 
     public static class Factory implements NodeRendererFactory {
+        @NotNull
         @Override
-        public NodeRenderer apply(final DataHolder options) {
+        public NodeRenderer apply(@NotNull final DataHolder options) {
             return new TwitterNodeRenderer(options);
         }
     }

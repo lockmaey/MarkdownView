@@ -1,8 +1,10 @@
 package br.tiagohm.markdownview.ext.mark;
 
-import com.vladsch.flexmark.ast.DelimitedNode;
+import com.vladsch.flexmark.util.ast.DelimitedNode;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
+
+import org.jetbrains.annotations.NotNull;
 
 public class Mark extends Node implements DelimitedNode {
     protected BasedSequence openingMarker = BasedSequence.NULL;
@@ -29,13 +31,14 @@ public class Mark extends Node implements DelimitedNode {
         this.superscriptBlockText = superscriptBlockText;
     }
 
+    @NotNull
     @Override
     public BasedSequence[] getSegments() {
         return new BasedSequence[]{openingMarker, text, closingMarker};
     }
 
     @Override
-    public void getAstExtra(StringBuilder out) {
+    public void getAstExtra(@NotNull StringBuilder out) {
         delimitedSegmentSpanChars(out, openingMarker, text, closingMarker, "text");
     }
 

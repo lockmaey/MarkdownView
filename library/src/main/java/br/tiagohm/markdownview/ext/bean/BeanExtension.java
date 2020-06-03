@@ -2,9 +2,11 @@ package br.tiagohm.markdownview.ext.bean;
 
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.data.DataKey;
 import com.vladsch.flexmark.util.data.MutableDataHolder;
+import com.vladsch.flexmark.util.misc.Extension;
+
+import org.jetbrains.annotations.NotNull;
 
 import br.tiagohm.markdownview.MarkdownView;
 import br.tiagohm.markdownview.ext.bean.internal.BeanDelimiterProcessor;
@@ -21,7 +23,7 @@ public class BeanExtension implements Parser.ParserExtension, HtmlRenderer.HtmlR
     }
 
     @Override
-    public void rendererOptions(final MutableDataHolder options) {
+    public void rendererOptions(@NotNull final MutableDataHolder options) {
 
     }
 
@@ -36,7 +38,7 @@ public class BeanExtension implements Parser.ParserExtension, HtmlRenderer.HtmlR
     }
 
     @Override
-    public void extend(HtmlRenderer.Builder rendererBuilder, String rendererType) {
+    public void extend(@NotNull HtmlRenderer.Builder rendererBuilder, @NotNull String rendererType) {
         if ("HTML".equals(rendererType)) {
             rendererBuilder.nodeRendererFactory(new BeanNodeRenderer.Factory());
         }

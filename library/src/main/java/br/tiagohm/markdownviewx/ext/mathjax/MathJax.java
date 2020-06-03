@@ -1,8 +1,10 @@
 package br.tiagohm.markdownviewx.ext.mathjax;
 
-import com.vladsch.flexmark.ast.DelimitedNode;
+import com.vladsch.flexmark.util.ast.DelimitedNode;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MathJax extends Node implements DelimitedNode {
     protected final boolean isInline;
@@ -38,13 +40,14 @@ public class MathJax extends Node implements DelimitedNode {
         this.isInline = isInline;
     }
 
+    @NotNull
     @Override
     public BasedSequence[] getSegments() {
         return new BasedSequence[]{openingMarker, text, closingMarker};
     }
 
     @Override
-    public void getAstExtra(StringBuilder out) {
+    public void getAstExtra(@NotNull StringBuilder out) {
         delimitedSegmentSpanChars(out, openingMarker, text, closingMarker, "text");
     }
 

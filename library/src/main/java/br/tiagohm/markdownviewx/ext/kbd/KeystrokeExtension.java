@@ -2,8 +2,10 @@ package br.tiagohm.markdownviewx.ext.kbd;
 
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.builder.Extension;
 import com.vladsch.flexmark.util.data.MutableDataHolder;
+import com.vladsch.flexmark.util.misc.Extension;
+
+import org.jetbrains.annotations.NotNull;
 
 import br.tiagohm.markdownviewx.ext.kbd.internal.KeystrokeDelimiterProcessor;
 import br.tiagohm.markdownviewx.ext.kbd.internal.KeystrokeNodeRenderer;
@@ -17,7 +19,7 @@ public class KeystrokeExtension implements Parser.ParserExtension, HtmlRenderer.
     }
 
     @Override
-    public void rendererOptions(final MutableDataHolder options) {
+    public void rendererOptions(@NotNull final MutableDataHolder options) {
 
     }
 
@@ -32,7 +34,7 @@ public class KeystrokeExtension implements Parser.ParserExtension, HtmlRenderer.
     }
 
     @Override
-    public void extend(HtmlRenderer.Builder rendererBuilder, String rendererType) {
+    public void extend(@NotNull HtmlRenderer.Builder rendererBuilder, @NotNull String rendererType) {
         if ("HTML".equals(rendererType)) {
             rendererBuilder.nodeRendererFactory(new KeystrokeNodeRenderer.Factory());
         }
