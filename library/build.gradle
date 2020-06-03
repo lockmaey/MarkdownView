@@ -42,5 +42,5 @@ dependencies {
     implementation 'com.vladsch.flexmark:flexmark-ext-footnotes:0.42.14'
     implementation 'com.vladsch.flexmark:flexmark-ext-attributes:0.42.14'
     //Logger
-    implementation 'com.orhanobut:logger:1.15'
+    implementation 'com.orhanobut:logger:2.2.0'
 }
