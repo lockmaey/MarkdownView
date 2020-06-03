@@ -5,8 +5,8 @@ import com.vladsch.flexmark.html.renderer.NodeRenderer;
 import com.vladsch.flexmark.html.renderer.NodeRendererFactory;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.builder.Extension;
-import com.vladsch.flexmark.util.options.DataHolder;
-import com.vladsch.flexmark.util.options.MutableDataHolder;
+import com.vladsch.flexmark.util.data.DataHolder;
+import com.vladsch.flexmark.util.data.MutableDataHolder;
 
 import br.tiagohm.markdownview.ext.mathjax.internal.MathJaxDelimiterProcessor;
 import br.tiagohm.markdownview.ext.mathjax.internal.MathJaxNodeRenderer;
@@ -36,15 +36,13 @@ public class MathJaxExtension implements Parser.ParserExtension, HtmlRenderer.Ht
 
     @Override
     public void extend(HtmlRenderer.Builder rendererBuilder, String rendererType) {
-        switch (rendererType) {
-            case "HTML":
-                rendererBuilder.nodeRendererFactory(new NodeRendererFactory() {
-                    @Override
-                    public NodeRenderer create(DataHolder options) {
-                        return new MathJaxNodeRenderer(options);
-                    }
-                });
-                break;
+        if ("HTML".equals(rendererType)) {
+            rendererBuilder.nodeRendererFactory(new NodeRendererFactory() {
+                @Override
+                public NodeRenderer apply(DataHolder options) {
+                    return new MathJaxNodeRenderer(options);
+                }
+            });
         }
     }
 }

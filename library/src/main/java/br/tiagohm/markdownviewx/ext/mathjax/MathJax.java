@@ -1,15 +1,15 @@
 package br.tiagohm.markdownviewx.ext.mathjax;
 
 import com.vladsch.flexmark.ast.DelimitedNode;
-import com.vladsch.flexmark.util.ast.CustomNode;
+import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
-public class MathJax extends CustomNode implements DelimitedNode {
+public class MathJax extends Node implements DelimitedNode {
+    protected final boolean isInline;
     protected BasedSequence openingMarker = BasedSequence.NULL;
     protected BasedSequence text = BasedSequence.NULL;
     protected BasedSequence closingMarker = BasedSequence.NULL;
     protected String superscriptBlockText;
-    protected final boolean isInline;
 
     public MathJax() {
         isInline = true;

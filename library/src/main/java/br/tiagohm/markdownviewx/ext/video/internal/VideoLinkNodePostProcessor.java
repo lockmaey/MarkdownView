@@ -20,10 +20,10 @@ import com.vladsch.flexmark.ast.Link;
 import com.vladsch.flexmark.ast.Text;
 import com.vladsch.flexmark.parser.block.NodePostProcessor;
 import com.vladsch.flexmark.parser.block.NodePostProcessorFactory;
-import com.vladsch.flexmark.util.NodeTracker;
 import com.vladsch.flexmark.util.ast.Document;
 import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.util.options.DataHolder;
+import com.vladsch.flexmark.util.ast.NodeTracker;
+import com.vladsch.flexmark.util.data.DataHolder;
 import com.vladsch.flexmark.util.sequence.BasedSequence;
 
 import br.tiagohm.markdownviewx.ext.video.VideoLink;
@@ -63,7 +63,7 @@ public class VideoLinkNodePostProcessor extends NodePostProcessor {
         }
 
         @Override
-        public NodePostProcessor create(Document document) {
+        public NodePostProcessor apply(Document document) {
             return new VideoLinkNodePostProcessor(document);
         }
     }

@@ -40,11 +40,11 @@ import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.superscript.SuperscriptExtension;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.builder.Extension;
+import com.vladsch.flexmark.util.data.DataHolder;
+import com.vladsch.flexmark.util.data.MutableDataHolder;
+import com.vladsch.flexmark.util.data.MutableDataSet;
 import com.vladsch.flexmark.util.html.Attributes;
 import com.vladsch.flexmark.util.html.Escaping;
-import com.vladsch.flexmark.util.options.DataHolder;
-import com.vladsch.flexmark.util.options.MutableDataHolder;
-import com.vladsch.flexmark.util.options.MutableDataSet;
 
 import java.io.File;
 import java.io.IOException;
@@ -220,7 +220,7 @@ public class MarkdownView extends WebView {
                 .escapeHtml(mEscapeHtml)
                 .attributeProviderFactory(new IndependentAttributeProviderFactory() {
                     @Override
-                    public AttributeProvider create(LinkResolverContext context) {
+                    public AttributeProvider apply(LinkResolverContext context) {
                         return new CustomAttributeProvider();
 
                     }
@@ -288,7 +288,7 @@ public class MarkdownView extends WebView {
 
     public static class NodeRendererFactoryImpl implements NodeRendererFactory {
         @Override
-        public NodeRenderer create(DataHolder options) {
+        public NodeRenderer apply(DataHolder options) {
             return new NodeRenderer() {
                 @Override
                 public Set<NodeRenderingHandler<?>> getNodeRenderingHandlers() {
